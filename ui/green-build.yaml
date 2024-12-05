@@ -1,0 +1,39 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: green-albumui
+    app.kubernetes.io/component: green-albumui
+    app.kubernetes.io/instance: green-albumui
+  name: green-green-albumui
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: albumui:green
+  postCommit: {}
+  resources: {}
+  source:
+    contextDir: src
+    git:
+      uri: https://github.com/akubicharm/containerapps-albumui
+      ref: green
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: nodejs:20-minimal-ubi8
+        namespace: openshift
+    type: Source
+  triggers:
+  - github:
+      secret: 0w4mGAoRYAgEsjGGpDPV
+    type: GitHub
+  - generic:
+      secret: 1CyRIasHVZII_VwVDwoO
+    type: Generic
+  - type: ConfigChange
+  - imageChange: {}
+    type: ImageChange

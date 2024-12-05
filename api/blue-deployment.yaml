@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: blue-albumapi
+    app.kubernetes.io/component: blue-albumapi
+    app.kubernetes.io/instance: blue-albumapi
+  name: blue-albumapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: blue-albumapi
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        deployment: blue-albumapi
+    spec:
+      containers:
+      - image: 'image-registry.openshift-image-registry.svc:5000/bgdemo/albumapi:blue'
+        name: albumapi
+        ports:
+        - containerPort: 3500
+          protocol: TCP
+        resources: {}

@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: rollout-albumapi-active
+  spec:
+    ports:
+    - name: 3500-tcp
+      port: 3500
+      protocol: TCP
+      targetPort: 3500
+    selector:
+      app: rollout-albumapi
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: rollout-albumapi-preview
+  spec:
+    ports:
+    - name: 3500-tcp
+      port: 3500
+      protocol: TCP
+      targetPort: 3500
+    selector:
+      app: rollout-albumapi      
+- apiVersion: argoproj.io/v1alpha1
+  kind: Rollout
+  metadata:
+    name: rollout-albumapi
+  spec:
+    replicas: 2
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: rollout-albumapi
+    template:
+      metadata:
+        labels:
+          app: rollout-albumapi
+      spec:
+        containers:
+        - name: rollout-albumapi
+          image: 'image-registry.openshift-image-registry.svc:5000/bgdemo/albumapi:green'
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 3500
+    strategy:
+      blueGreen: 
+        # activeService specifies the service to update with the new template hash at time of promotion.
+        # This field is mandatory for the blueGreen update strategy.
+        activeService: rollout-albumapi-active
+        # previewService specifies the service to update with the new template hash before promotion.
+        # This allows the preview stack to be reachable without serving production traffic.
+        # This field is optional.
+        previewService: rollout-albumapi-preview
+        # autoPromotionEnabled disables automated promotion of the new stack by pausing the rollout
+        # immediately before the promotion. If omitted, the default behavior is to promote the new
+        # stack as soon as the ReplicaSet are completely ready/available.
+        # Rollouts can be resumed using: `kubectl argo rollouts promote ROLLOUT`
+        autoPromotionEnabled: true

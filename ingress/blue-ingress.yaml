@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blue-albumui-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true" # Enable canary.
+    nginx.ingress.kubernetes.io/canary-weight: "100"
+spec:
+  ingressClassName: nginx
+  defaultBackend:
+    service:
+      name: blue-albumui
+      port:
+        number: 3000
+  rules:
+  - host: test.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: blue-albumui
+            port:
+              number: 3000
+

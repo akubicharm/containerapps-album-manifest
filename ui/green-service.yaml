@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: green-albumui
+    app.kubernetes.io/component: green-albumui
+    app.kubernetes.io/instance: green-albumui
+  name: green-albumui
+spec:
+  ports:
+  - name: 3000-tcp
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    deployment: green-albumui

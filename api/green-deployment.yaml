@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: green-albumapi
+    app.kubernetes.io/component: green-albumapi
+    app.kubernetes.io/instance: green-albumapi
+  name: green-albumapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: green-albumapi
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        deployment: green-albumapi
+    spec:
+      containers:
+      - image: 'image-registry.openshift-image-registry.svc:5000/bgdemo/albumapi:green'
+        name: albumapi
+        ports:
+        - containerPort: 3500
+          protocol: TCP
+        resources: {}

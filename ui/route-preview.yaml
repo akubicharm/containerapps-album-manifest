@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: preview-albumui
+    app.kubernetes.io/component: preview-albumui
+    app.kubernetes.io/instance: preview-albumui
+  name: preview-albumui
+spec:
+  port:
+    targetPort: 3000-tcp
+  to:
+    kind: Service
+    name: green-albumui
+    weight: 100
+status: {}

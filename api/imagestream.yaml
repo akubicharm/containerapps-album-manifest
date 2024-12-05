@@ -1,0 +1,13 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: albumapi
+    app.kubernetes.io/component: albumapi
+    app.kubernetes.io/instance: albumapi
+  name: albumapi
+spec:
+  lookupPolicy:
+    local: false
+status:
+  dockerImageRepository: ""
