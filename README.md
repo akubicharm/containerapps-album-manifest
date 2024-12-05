@@ -20,10 +20,10 @@ graph
 
 
 
-oc new-app openshift/nodejs:20-minimal-ubi8~https://github.com/akubicharm/containerapps-albumapi-javascript  \
+<!-- oc new-app openshift/nodejs:20-minimal-ubi8~https://github.com/akubicharm/containerapps-albumapi-javascript  \
 --context-dir=src \
 --dry-run -o yaml > app.yaml
 
 oc new-app openshift/nodejs:20-minimal-ubi8~https://github.com/akubicharm/containerapps-albumui  \
 --context-dir=src \
---dry-run -o yaml > app.yaml
+--dry-run -o yaml > app.yaml -->
