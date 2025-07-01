@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: albumapi-java
+  name: albumapi-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: albumapi-java
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        deployment: albumapi-java
+    spec:
+      containers:
+      - image: 'quay.io/keomizo_redhat/albumapi-java:latest'
+        name: albumapi-java
+        ports:
+        - containerPort: 3500
+          protocol: TCP
+        resources: {}
