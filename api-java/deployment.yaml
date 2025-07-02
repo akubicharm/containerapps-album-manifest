@@ -4,6 +4,9 @@ metadata:
   labels:
     app: albumapi-java
   name: albumapi-java
+  annotations:
+    openshift.io/display-name: "Album App"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   replicas: 1
   selector:
@@ -19,6 +22,5 @@ spec:
       - image: 'quay.io/keomizo_redhat/albumapi-java:latest'
         name: albumapi-java
         ports:
-        - containerPort: 3500
+        - containerPort: 8080
           protocol: TCP
-        resources: {}

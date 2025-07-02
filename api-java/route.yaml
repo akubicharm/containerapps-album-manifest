@@ -2,14 +2,17 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: albumapi-java
+  annotations:
+    openshift.io/display-name: "Album App"
+    argocd.argoproj.io/sync-wave: "2"  
 spec:
-  host:
+  path: /
   port:
-    targetPort: 3500
+    targetPort: 8080-tcp
   tls:
     termination: edge
+  wildcardPolicy: None
   to:
     kind: Service
     name: albumapi-java
     weight: 100
-  wildcardPolicy: None
