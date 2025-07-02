@@ -5,7 +5,7 @@ metadata:
   name: albumapp
   labels:
     app: albumapp
-    argocd.argoproj.io/managed-by: album-cicd
+    argocd.argoproj.io/managed-by: openshift-gitops
   annotations:
     openshift.io/display-name: "Album App"
     argocd.argoproj.io/sync-wave: "0"
