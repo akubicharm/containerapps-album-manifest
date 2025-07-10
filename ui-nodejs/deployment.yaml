@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: albumui
+  name: albumui
+  annotations:
+    openshift.io/display-name: "Album App"
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: albumui
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        deployment: albumui
+    spec:
+      containers:
+      - image: 'quay.io/keomizo_redhat/albumui-nodejs:latest'
+        name: albumui
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+        - name: API_BASE_URL
+          value: 'http://albumapi-java:8080'
+        resources: {}

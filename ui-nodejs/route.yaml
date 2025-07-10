@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: albumui
+  annotations:
+    openshift.io/display-name: "Album App"
+    argocd.argoproj.io/sync-wave: "2"  
+spec:
+  path: /
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+  wildcardPolicy: None
+  to:
+    kind: Service
+    name: albumui
+    weight: 100
