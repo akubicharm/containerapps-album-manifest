@@ -9,7 +9,7 @@ commonLabels:
 
 resources:
 # wave 0
-- namespace.yaml
+# - namespace.yaml
 
 # wave 1
 - deployment.yaml
